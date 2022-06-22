@@ -1,7 +1,7 @@
-LAB - Express
+LAB - Bearer Authorization
 ========
 
-Express Api Server
+Creating tokens and validating them with JWT
 ---------------
 
 ### Author: Abdinasir Yussuf
