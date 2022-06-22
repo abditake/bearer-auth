@@ -22,7 +22,7 @@ async function handleSignin(req, res, next) {
       user: req.user,
       token: req.user.token
     };
-    res.status(201).json(user);
+    res.status(200).json(user);
   } catch (e) {
     console.error(e);
     next(e);
@@ -33,7 +33,7 @@ async function handleGetUsers(req, res, next) {
   try {
     const userRecords = await users.findAll({});
     const list = userRecords.map(user => user.username);
-    res.status(201).json(list);
+    res.status(200).json(list);
   } catch (e) {
     console.error(e);
     next(e);
@@ -41,7 +41,7 @@ async function handleGetUsers(req, res, next) {
 }
 
 function handleSecret(req, res, next) {
-  res.status(201).send("Welcome to the secret area!");
+  res.status(200).send("Welcome to the secret area!");
 }
 
 module.exports = {
