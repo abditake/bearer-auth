@@ -42,4 +42,4 @@ Express Api Server
 
 #### UML
 
-example for sequelize design 
+![uml design for token](./assets/auth_server.png)
