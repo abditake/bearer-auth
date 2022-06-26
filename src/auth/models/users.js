@@ -1,9 +1,9 @@
 'use strict';
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
-
-const SECRET = process.env.API_SECRET;
+const SECRET = process.env.API_SECRET || 'TEST_SECRET';
 
 const userSchema = (sequelize, DataTypes) => {
   const model = sequelize.define('User', {
@@ -15,7 +15,7 @@ const userSchema = (sequelize, DataTypes) => {
         return jwt.sign({ username: this.username }, SECRET, { expiresIn: 500000 });
       },
       set(payload) {
-        return jwt.sign(payload, SECRET);
+        return jwt.sign(payload, SECRET,{ expiresIn: 500000 });
       }
     }
   });
@@ -45,8 +45,11 @@ const userSchema = (sequelize, DataTypes) => {
   model.authenticateToken = async function (token) {
     try {
       const parsedToken = jwt.verify(token, SECRET);
+      console.log('payload', parsedToken);
+      
       const user = await this.findOne({ where: { username: parsedToken.username } })
-
+      
+      console.log('model.authenticateToken', user);
       if (user) { return user }
       throw new Error("User Not Found");
     } catch (e) {
